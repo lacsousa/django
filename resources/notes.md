@@ -131,3 +131,47 @@ print(str(reg.query))
 - `uv run python manage.py makemigrations exemplo01`: Gera migrações para as novas tabelas adicionadas em models.py.
 - `uv run python manage.py migrate`: Aplica as migrações ao banco de dados.
 
+
+## Comandos Django - Aula 4 (Framework-aula-4.pdf)
+
+### Novo App exemplo02
+- `uv run python manage.py startapp exemplo02`: Cria a estrutura do novo aplicativo exemplo02.
+
+### Models Criados (exemplo02/models.py)
+- **Medico**: nome, especialidade, crm, telefone, email
+- **Paciente**: nome, data_nascimento, cpf, telefone, email
+- **Procedimento**: descricao, codigo, valor
+- **Consulta**: paciente, medico, procedimento, data_consulta, Observacao
+
+### Views Criadas (exemplo02/views.py)
+- `listamedico`: Lista todos os médicos
+- `listaPaciente`: Lista todos os pacientes
+- `detalheConsulta`: Detalhes das consultas (usando select_related para JOIN)
+- `novaConsulta`: Formulário para criar nova consulta (POST)
+
+### URLs (exemplo02/urls.py)
+- `/exemplo02/listamedico/`
+- `/exemplo02/listaPaciente/`
+- `/exemplo02/detalheConsulta/`
+- `/exemplo02/novaConsulta/`
+
+### Consultas Avançadas no Shell
+```python
+from exemplo02.models import Medico, Paciente, Procedimento, Consulta
+
+# JOIN com select_related (otimiza consultas)
+consultas = Consulta.objects.select_related('paciente', 'medico', 'procedimento').all()
+
+# Filtrar por relacionamento
+Consulta.objects.filter(medico__especialidade='Cardiologia')
+
+# Agregações
+from django.db.models import Count, Sum, Avg
+Consulta.objects.filter(medico__nome='Dr. João').count()
+Consulta.objects.values('procedimento__descricao').annotate(total=Sum('valor'))
+```
+
+### Geração de Migrações para exemplo02
+- `uv run python manage.py makemigrations exemplo02`: Gera as migrações para as novas tabelas.
+- `uv run python manage.py migrate`: Aplica ao banco.
+

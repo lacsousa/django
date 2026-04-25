@@ -1,0 +1,4 @@
+veja o arquivo Frameworks-aula-4.pdf e veja o que tem de código nesse pdf e 
+verifique o que já tem de código no projeto. 
+O que estiver faltando pode atualizar e inserir. Além disso atualize o documento notes.md 
+com os comando executados do pdf
