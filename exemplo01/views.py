@@ -80,7 +80,7 @@ def pagina5(request):
     print("Funcao:", xfuncao)
     print("Nascimento:", xnascimento)
     print("ativo:", xativo)
-    if xnome is not None:
+    if (xnome is not None) and (xemail is not None):
         xativo = False
         if xativo == 'on':
             xativo = True
