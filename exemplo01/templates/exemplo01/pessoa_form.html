@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Form de Pessoas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <center>
+                <p>bdpratico\exemplo01\templates\exemplo01\pessoa_form.html</p>
+                <img src="{% static 'pessoa.png' %}" class="img-fluid" alt="Teste" width="15%">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="row" style="line-height: 1;">
+                            <div class="col-md-1 col-sm-1 col-xs-1"></div>
+                            <div class="col-md-8 col-sm-12 col-xs-12">
+                                <div class="mb-3">
+                                    <label for="id_nome" class="form-label">Nome</label>
+                                    {{ form.nome }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="line-height: 1;">
+                            <div class="col-md-1 col-sm-1 col-xs-1"></div>
+                            <div class="col-md-8 col-sm-12 col-xs-12">
+                                <div class="mb-3">
+                                    <label for="id_email" class="form-label">eMail</label>
+                                    {{ form.email }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="line-height: 1;">
+                            <div class="col-md-1 col-sm-1 col-xs-1"></div>
+                            <div class="col-md-4 col-sm-4 col-xs-4">
+                                <div class="mb-3">
+                                    <label for="id_celular" class="form-label">Celular</label>
+                                    {{ form.celular }}
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-4 col-xs-4">
+                                <div class="mb-3">
+                                    <label for="id_funcao" class="form-label">Função</label>
+                                    {{ form.funcao }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="line-height: 1;">
+                            <div class="col-md-1 col-sm-1 col-xs-1"></div>
+                            <div class="col-md-4 col-sm-4 col-xs-4">
+                                <div class="mb-3">
+                                    <label for="id_nascimento" class="form-label">Nascimento</label>
+                                    {{ form.nascimento }}
+                                </div>
+                            </div>
+                            <div class="col-md-1 col-sm-1 col-xs-1"><br><br>
+                                {{ form.ativo }}
+                            </div>
+                            <div class="col-md-1 col-sm-1 col-xs-1"><br>
+                                <button type="submit" class="btn btn-primary">Salvar</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </center>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

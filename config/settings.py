@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'exemplo01',
     'exemplo02',
     'django_browser_reload',
+    'django_tables2',
 ]
 
 MIDDLEWARE = [

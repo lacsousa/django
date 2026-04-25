@@ -1,0 +1,27 @@
+{% load static %}
+{% load render_table from django_tables2 %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Menu de Pessoas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <center>
+                <p>bdpratico\exemplo01\templates\exemplo01\pessoa_menu.html</p>
+                <img src="{% static 'pessoa.png' %}" class="img-fluid" alt="Teste" width="15%">
+                <br><br>
+                {% render_table table %}
+                <br>
+                <a href="{% url 'pessoa_create_alias' %}">
+                    <input type="button" class="btn btn-primary" value="Incluir novas pessoas">
+                </a>
+            </center>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

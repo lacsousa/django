@@ -41,3 +41,10 @@
 
 - `uv run python manage.py runserver`: Inicia o servidor de desenvolvimento local do Django.
 
+
+## Comandos Django - Aula 2 (Framework-aula-2.pdf)
+
+- `uv add django-tables2`: Instala o pacote `django-tables2`, que permite criar tabelas HTML dinâmicas e paginadas a partir de models ou querysets Django.
+
+- `pip install django-bootstrap-v5`: Instala o pacote de integração do Bootstrap 5 com Django (via tags de template). Observação: este pacote suporta apenas Django até a versão 4.x. Em projetos com Django 5+, use Bootstrap via CDN diretamente nos templates HTML.
+
