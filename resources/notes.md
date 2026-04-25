@@ -48,3 +48,86 @@
 
 - `pip install django-bootstrap-v5`: Instala o pacote de integração do Bootstrap 5 com Django (via tags de template). Observação: este pacote suporta apenas Django até a versão 4.x. Em projetos com Django 5+, use Bootstrap via CDN diretamente nos templates HTML.
 
+
+## Comandos Django - Aula 3 (Framework-aula-3.pdf)
+
+### Django ORM - Shell Interativo
+- `uv run python manage.py shell`: Abre um shell interativo do Django para executar comandos ORM manualmente.
+
+### Consultas ORM (executadas no shell ou em views)
+```python
+# Importar modelos
+from exemplo01.models import Pessoa, procedimento, procedimento_executado
+from django.db.models import Q
+
+# Buscar todos os registros
+Pessoa.objects.all()
+
+# Retornar colunas específicas
+Pessoa.objects.values('nome', 'email')
+Pessoa.objects.values_list('nome', 'email')
+
+# Filtrar registros (equivale ao WHERE)
+Pessoa.objects.filter(funcao="Médico")
+Pessoa.objects.filter(funcao="Médico", ativo=True)
+
+# Filtro com OR (usando Q)
+query = Q( Q(funcao="Médico") | Q(funcao="Professor") )
+Pessoa.objects.filter(query)
+
+# Filtro com AND e OR combinados
+Pessoa.objects.filter(query, ativo=True)
+
+# EXCLUDE (equivale ao NOT)
+Pessoa.objects.filter(nascimento="1980-01-01").exclude(ativo=False)
+
+# ORDER BY
+Pessoa.objects.filter(ativo=True).order_by("nome")       # ASC
+Pessoa.objects.filter(ativo=True).order_by("-nome")      # DESC
+
+# GET (busca por chave única)
+Pessoa.objects.get(nome='Fulano de Tal')
+
+# UPDATE
+Pessoa.objects.filter(id=1).update(nome='Novo Nome')
+Pessoa.objects.update(ativo=True)
+
+# EXISTS
+Pessoa.objects.filter(ativo=True).exists()
+
+# COUNT
+Pessoa.objects.filter(ativo=True).count()
+
+# FIRST e LAST
+Pessoa.objects.filter(ativo=True).first()
+Pessoa.objects.filter(ativo=True).last()
+
+# IN
+Pessoa.objects.filter(id__in=[1, 2, 3, 4, 5])
+
+# Comparadores: GT, GTE, LT, LTE
+Pessoa.objects.filter(id__gt=5)
+Pessoa.objects.filter(id__lt=5)
+Pessoa.objects.filter(id__gte=5)
+Pessoa.objects.filter(id__lte=5)
+
+# STARTSWITH e CONTAINS
+Pessoa.objects.filter(nome__startswith='Jo')
+Pessoa.objects.filter(nome__contains='Jo')
+
+# Consultas entre tabelas (JOIN via ForeignKey)
+procedimento_executado.objects.filter(pessoa__ativo=True)
+procedimento_executado.objects.filter(pessoa__ativo=True, procedimento__cid=512)
+
+# Verificar SQL gerado pelo Django
+reg = procedimento_executado.objects.filter(pessoa__ativo=True)
+print(str(reg.query))
+```
+
+### Instalação do Pandas
+- `uv add pandas`: Instala o Pandas para manipulação e exportação/importação de dados (CSV, Excel, etc.)
+
+### Migrações após adicionar novas tabelas (procedimento, procedimento_executado)
+- `uv run python manage.py makemigrations exemplo01`: Gera migrações para as novas tabelas adicionadas em models.py.
+- `uv run python manage.py migrate`: Aplica as migrações ao banco de dados.
+
