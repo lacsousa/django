@@ -2,8 +2,11 @@ asgiref==3.11.1
 django==6.0.4
 django-browser-reload==1.21.0
 django-tables2==3.0.0
+narwhals==2.20.0
 numpy==2.4.4
+packaging==26.2
 pandas==3.0.2
+plotly==6.7.0
 python-dateutil==2.9.0.post0
 six==1.17.0
 sqlparse==0.5.5

@@ -223,3 +223,26 @@ Consulta.objects.values('procedimento__descricao').annotate(total=Sum('valor'))
 
 - `uv run python manage.py makemigrations exemplo02`: Gera as migrações para as novas tabelas.
 - `uv run python manage.py migrate`: Aplica ao banco.
+
+### Importação e Exportação de Dados (TXT/CSV)
+
+#### Novo Modelo: exame
+- Adicionado em `exemplo01/models.py`:
+```python
+class exame(models.Model):
+    valor = models.FloatField(null=True, blank=True, default=None, verbose_name='Valor')
+    def __str__(self):
+        return str(self.valor)
+```
+
+#### Migrações para exame
+- `uv run python manage.py makemigrations exemplo01`: Gera migração para o modelo exame.
+- `uv run python manage.py migrate`: Aplica a migração.
+
+#### Instalação do Plotly para Gráficos
+- `uv pip install plotly`: Instala a biblioteca Plotly para criação de gráficos interativos.
+
+#### Ambiente Virtual (Replicação)
+- `python -m pip freeze > requirements.txt`: Gera lista de dependências instaladas (adaptado para UV: `uv pip freeze > requirements.txt`).
+- `python -m venv <nome_env>`: Cria novo ambiente virtual (UV: `uv venv`).
+- `python -m pip install -r requirements.txt`: Instala dependências no novo ambiente (UV: `uv pip install -r requirements.txt`).
