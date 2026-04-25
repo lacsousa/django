@@ -1,21 +1,21 @@
 # Resumo de Comandos do UV
 
-
 ## Criar ambiente virtual
+
 - `uv init`: Inicializa um novo projeto gerenciado pelo uv, criando o ambiente virtual e arquivos de configuração (como `pyproject.toml`).
 - `uv venv`: Cria um novo ambiente virtual python isolado no diretório atual (geralmente em `.venv`).
 
-
 ## Instalação dos requirements
+
 - `uv add django`: Adiciona o pacote Django como dependência do projeto e o instala no ambiente virtual automaticamente.
 - `uv list` / `uv pip list`: Lista todos os pacotes e dependências instaladas no ambiente atual.
 
-
 ## Criação do Requirements
+
 - `uv pip freeze > requirements.txt`: Cria o arquivo com todas as dependências necessárias ao projeto agora
 
-
 ## Execução do projeto
+
 - `uv run django-admin startproject <nome> .`: Executa o utilitário do Django para criar a estrutura inicial do projeto no diretório atual. O "." é para não criar uma outra pasta config dentro da pasta config
 
 - `uv run python manage.py startapp <nome>`: Cria a estrutura de um novo aplicativo dentro do projeto Django.
@@ -27,7 +27,6 @@
 - `uv run python manage.py createsuperuser`: Inicia o prompt para criação de um usuário administrador para acessar o painel administrativo (Admin) do Django.
 
 - `uv run python manage.py runserver`: Inicia o servidor de desenvolvimento local do Django para rodar o projeto.
-
 
 ## Comandos Django - Aula 1 (Framework-aula-1.pdf)
 
@@ -41,20 +40,29 @@
 
 - `uv run python manage.py runserver`: Inicia o servidor de desenvolvimento local do Django.
 
-
 ## Comandos Django - Aula 2 (Framework-aula-2.pdf)
 
 - `uv add django-tables2`: Instala o pacote `django-tables2`, que permite criar tabelas HTML dinâmicas e paginadas a partir de models ou querysets Django.
 
 - `pip install django-bootstrap-v5`: Instala o pacote de integração do Bootstrap 5 com Django (via tags de template). Observação: este pacote suporta apenas Django até a versão 4.x. Em projetos com Django 5+, use Bootstrap via CDN diretamente nos templates HTML.
 
-
 ## Comandos Django - Aula 3 (Framework-aula-3.pdf)
 
+### Instalação de Dependências
+
+- `uv pip install pandas`: Instala a biblioteca Pandas para manipulação de dados e exportação/importação de CSV.
+
+### Migrações de Banco de Dados
+
+- `uv run python manage.py makemigrations exemplo01`: Gera arquivos de migração para o app `exemplo01` com base nas alterações nos modelos (adicionando `procedimento` e `procedimento_executado`).
+- `uv run python manage.py migrate`: Aplica as migrações pendentes ao banco de dados.
+
 ### Django ORM - Shell Interativo
+
 - `uv run python manage.py shell`: Abre um shell interativo do Django para executar comandos ORM manualmente.
 
 ### Consultas ORM (executadas no shell ou em views)
+
 ```python
 # Importar modelos
 from exemplo01.models import Pessoa, procedimento, procedimento_executado
@@ -105,24 +113,64 @@ Pessoa.objects.filter(ativo=True).last()
 # IN
 Pessoa.objects.filter(id__in=[1, 2, 3, 4, 5])
 
-# Comparadores: GT, GTE, LT, LTE
-Pessoa.objects.filter(id__gt=5)
-Pessoa.objects.filter(id__lt=5)
-Pessoa.objects.filter(id__gte=5)
-Pessoa.objects.filter(id__lte=5)
+# Comparações
+Pessoa.objects.filter(id__gt=5)    # Maior que
+Pessoa.objects.filter(id__gte=5)   # Maior ou igual
+Pessoa.objects.filter(id__lt=5)    # Menor que
+Pessoa.objects.filter(id__lte=5)   # Menor ou igual
 
-# STARTSWITH e CONTAINS
+# STARTSWITH
 Pessoa.objects.filter(nome__startswith='Jo')
+
+# CONTAINS
 Pessoa.objects.filter(nome__contains='Jo')
 
-# Consultas entre tabelas (JOIN via ForeignKey)
+# Consultas entre tabelas (usando ForeignKey)
 procedimento_executado.objects.filter(pessoa__ativo=True)
 procedimento_executado.objects.filter(pessoa__ativo=True, procedimento__cid=512)
 
-# Verificar SQL gerado pelo Django
-reg = procedimento_executado.objects.filter(pessoa__ativo=True)
+# Ver SQL gerado
+reg = procedimento_executado.objects.filter(pessoa__ativo=True, procedimento__cid=512)
 print(str(reg.query))
+
+# Acesso aos campos relacionados
+reg = procedimento_executado.objects.filter(pessoa__ativo=True, procedimento__cid=512)
+print(reg[0].pessoa.celular)
+print(reg[0].procedimento.valor)
 ```
+
+# FIRST e LAST
+
+Pessoa.objects.filter(ativo=True).first()
+Pessoa.objects.filter(ativo=True).last()
+
+# IN
+
+Pessoa.objects.filter(id\_\_in=[1, 2, 3, 4, 5])
+
+# Comparadores: GT, GTE, LT, LTE
+
+Pessoa.objects.filter(id**gt=5)
+Pessoa.objects.filter(id**lt=5)
+Pessoa.objects.filter(id**gte=5)
+Pessoa.objects.filter(id**lte=5)
+
+# STARTSWITH e CONTAINS
+
+Pessoa.objects.filter(nome**startswith='Jo')
+Pessoa.objects.filter(nome**contains='Jo')
+
+# Consultas entre tabelas (JOIN via ForeignKey)
+
+procedimento_executado.objects.filter(pessoa**ativo=True)
+procedimento_executado.objects.filter(pessoa**ativo=True, procedimento\_\_cid=512)
+
+# Verificar SQL gerado pelo Django
+
+reg = procedimento_executado.objects.filter(pessoa\_\_ativo=True)
+print(str(reg.query))
+
+````
 
 ### Instalação do Pandas
 - `uv add pandas`: Instala o Pandas para manipulação e exportação/importação de dados (CSV, Excel, etc.)
@@ -169,9 +217,9 @@ Consulta.objects.filter(medico__especialidade='Cardiologia')
 from django.db.models import Count, Sum, Avg
 Consulta.objects.filter(medico__nome='Dr. João').count()
 Consulta.objects.values('procedimento__descricao').annotate(total=Sum('valor'))
-```
+````
 
 ### Geração de Migrações para exemplo02
+
 - `uv run python manage.py makemigrations exemplo02`: Gera as migrações para as novas tabelas.
 - `uv run python manage.py migrate`: Aplica ao banco.
-
