@@ -2,8 +2,12 @@
 
 ## Criar ambiente virtual
 
+- `curl -LsSf https://astral.sh/uv/install.sh | sh` - Install UV
+
 - `uv init`: Inicializa um novo projeto gerenciado pelo uv, criando o ambiente virtual e arquivos de configuração (como `pyproject.toml`).
 - `uv venv`: Cria um novo ambiente virtual python isolado no diretório atual (geralmente em `.venv`).
+
+- `$ uv pip install -r requirements.txt` - Install Python dependencies 
 
 ## Instalação dos requirements
 
@@ -243,6 +247,7 @@ class exame(models.Model):
 - `uv pip install plotly`: Instala a biblioteca Plotly para criação de gráficos interativos.
 
 #### Ambiente Virtual (Replicação)
+
 - `python -m pip freeze > requirements.txt`: Gera lista de dependências instaladas (adaptado para UV: `uv pip freeze > requirements.txt`).
 - `python -m venv <nome_env>`: Cria novo ambiente virtual (UV: `uv venv`).
 - `python -m pip install -r requirements.txt`: Instala dependências no novo ambiente (UV: `uv pip install -r requirements.txt`).
