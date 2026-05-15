@@ -7,6 +7,8 @@
 - `uv init`: Inicializa um novo projeto gerenciado pelo uv, criando o ambiente virtual e arquivos de configuração (como `pyproject.toml`).
 - `uv venv`: Cria um novo ambiente virtual python isolado no diretório atual (geralmente em `.venv`).
 
+- `source .venv/bin/activate` ativar a venv
+
 - `$ uv pip install -r requirements.txt` - Install Python dependencies 
 
 ## Instalação dos requirements
